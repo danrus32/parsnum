@@ -1,11 +1,4 @@
-Русский
-Привет этот скрипт парсит дааные с сайта 999.md он парсит номера местоположение и никнэимы если вам нужен и  ид постабиспользуйте pars+id все даные записываютца в numbers.txt и data.db  для просмотра даных есть скрипт db_view.py а для поиска search_db.py так же при парсинге используетца прокси, даные парсятца анонимно
- Для парсинга запустите numpas.py в numpas.py  ид постов поставлен от 60000000 до 70000000 на этих ид больше всего актуальных постов а если хотие изменить то в конце скрипта есть #post id  в () меняите значение и все.
-Нужно:
-pip install re 
-pip install sqlite3
-pip install bs4
-pip install lxml
+
 
 English
 Hi, this script parses data from the site 999.md, it parses location numbers and nicknames if you need and id post use pars+id all the data written in numbers.txt and data.db to view the data there is a script db_view.py and to search search_db.py also when parsing uses proxies, the data of the parser is anonymous
