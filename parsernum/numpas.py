@@ -68,43 +68,43 @@ def num(posts):
     for p in proxies:
         headers = initHeaders()	
         prox['http'] = p
-    full_url = URL.format(posts)
-    r = requests.get(full_url,proxies=prox)
-    s = BeautifulSoup(r.text,"lxml")
-    with open ("numbers.txt","a" , encoding="utf-8") as InFile:
-        try:
-            nik ="Nickname:       " +s.select(".adPage__aside__stats__owner__login")[0].text.strip() +"\n"
-            num = s.select(".adPage__content__phone")[0].text.strip()+"\n"
-            region  = s.select(".adPage__content__region")[0].text.strip()+"\n"
-            InFile.write(nik)
-            InFile.write(num)
-            InFile.write(region +"-----------------------------------------------------------------------------------------------\n")
-            #data base
-            db = sqlite3.connect("date.db")
-            sql = db.cursor()
-            sql.execute("""CREATE TABLE IF NOT EXISTS users(
-                nickname TEXT,
-                number TEXT,
-                region TEXT
-            )""")
-            db.commit()
-            nikb =s.select(".adPage__aside__stats__owner__login")[0].text.strip()
-            numb = s.select(".adPage__content__phone")[0].text.strip()
-            numb = numb.replace(u'\xa0', u'')
-            regionb  = s.select(".adPage__content__region")[0].text.strip()
-            sql.execute(f"INSERT INTO users VALUES(?,?,?)",(nikb,numb[16::],regionb[12::]))
+        full_url = URL.format(posts)
+        r = requests.get(full_url,proxies=prox)
+        s = BeautifulSoup(r.text,"lxml")
+        with open ("numbers.txt","a" , encoding="utf-8") as InFile:
+            try:
+                nik ="Nickname:       " +s.select(".adPage__aside__stats__owner__login")[0].text.strip() +"\n"
+                num = s.select(".adPage__content__phone")[0].text.strip()+"\n"
+                region  = s.select(".adPage__content__region")[0].text.strip()+"\n"
+                InFile.write(nik)
+                InFile.write(num)
+                InFile.write(region +"-----------------------------------------------------------------------------------------------\n")
+                #data base
+                db = sqlite3.connect("date.db")
+                sql = db.cursor()
+                sql.execute("""CREATE TABLE IF NOT EXISTS users(
+                    nickname TEXT,
+                    number TEXT,
+                    region TEXT
+                )""")
+                db.commit()
+                nikb =s.select(".adPage__aside__stats__owner__login")[0].text.strip()
+                numb = s.select(".adPage__content__phone")[0].text.strip()
+                numb = numb.replace(u'\xa0', u'')
+                regionb  = s.select(".adPage__content__region")[0].text.strip()
+                sql.execute(f"INSERT INTO users VALUES(?,?,?)",(nikb,numb[16::],regionb[12::]))
 
-            db.commit()
+                db.commit()
 
-            print("Nickname:       " + s.select(".adPage__aside__stats__owner__login")[0].text.strip())
-        
-            print("" + s.select(".adPage__content__phone")[0].text.strip())   
-            print("" + s.select(".adPage__content__region")[0].text.strip())
+                print("Nickname:       " + s.select(".adPage__aside__stats__owner__login")[0].text.strip())
             
-            print("-----------------------------------------------------------------------------------------------")
-        except IndexError:
-            print("PAGE NOT EXISTEND")
-            pass
+                print("" + s.select(".adPage__content__phone")[0].text.strip())   
+                print("" + s.select(".adPage__content__region")[0].text.strip())
+                
+                print("-----------------------------------------------------------------------------------------------")
+            except IndexError:
+                print("PAGE NOT EXISTEND")
+                pass
         
     
 
